@@ -9,13 +9,7 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.Is.is;
 
-public class CartTests {
-
-    @BeforeAll
-    static void setup() {
-        RestAssured.filters(new AllureRestAssured());
-        RestAssured.baseURI = "http://demowebshop.tricentis.com";
-    }
+public class CartTests extends TestBase{
 
     @Test
     void successAddToCart() {
