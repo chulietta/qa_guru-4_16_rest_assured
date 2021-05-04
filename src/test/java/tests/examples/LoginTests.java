@@ -2,6 +2,7 @@ package tests.examples;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Cookie;
+import tests.TestBase;
 
 import java.util.Map;
 
@@ -26,15 +27,13 @@ public class LoginTests extends TestBase {
         Map<String, String> cookiesMap =
                 given()
                         .contentType("application/x-www-form-urlencoded")
-                        //.contentType(ContentType.URLENC)
-                        .formParam("Email", "qaguru@qa.guru")
-                        .formParam("Password", "qaguru@qa.guru1")
+                        .formParam("Email", "9757975@gmail.com")
+                        .formParam("Password", "Qwerty123")
                         .when()
                         .post("/login")
                         .then()
                         .statusCode(302)
                         .log().body()
-                        //.body("success", is(true))
                         .extract().cookies();
 
         open("http://demowebshop.tricentis.com/favicon.ico");
@@ -44,6 +43,6 @@ public class LoginTests extends TestBase {
         getWebDriver().manage().addCookie(new Cookie("ARRAffinity", cookiesMap.get("ARRAffinity")));
 
         open("");
-        $(".account").shouldHave(text("qaguru@qa.guru"));
+        $(".account").shouldHave(text("9757975@gmail.com"));
     }
 }

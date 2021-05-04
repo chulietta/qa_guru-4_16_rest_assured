@@ -3,6 +3,7 @@ package tests.examples;
 import api.Auth;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
+import tests.TestBase;
 
 import java.util.Map;
 
@@ -30,8 +31,8 @@ public class CartTests extends TestBase {
     }
 
     @Test
-    void successAddToCartWithCooliesTest() {
-        Map<String, String> cookies = new Auth().login("qaguru@qa.guru", "qaguru@qa.guru1");
+    void successAddToCartWithCookiesTest() {
+        Map<String, String> cookies = new Auth().getCookies("9757975@gmail.com", "Qwerty123");
         Response response =
                 given()
                         .contentType("application/x-www-form-urlencoded; charset=UTF-8")
@@ -43,6 +44,24 @@ public class CartTests extends TestBase {
                         .statusCode(200)
                         .log().body()
                         .body("success", is(true))
+                        .extract().response();
+
+        System.out.println(response);
+    }
+
+    @Test
+    void successAddAddressTest() {
+        Map<String, String> cookies = new Auth().getCookies("9757975@gmail.com", "Qwerty123");
+        Response response =
+                given()
+                        .contentType("application/x-www-form-urlencoded; charset=UTF-8")
+                        .cookies(cookies)
+                        .body("Address.Id=0&Address.FirstName=Yuliya&Address.LastName=Koronkevich&Address.Email=9757975%40gmail.com&Address.Company=&Address.CountryId=1&Address.StateProvinceId=3&Address.City=Tambov&Address.Address1=Great+Street&Address.Address2=&Address.ZipPostalCode=125363&Address.PhoneNumber=9099999099&Address.FaxNumber=")
+                        .when()
+                        .post("/customer/addressadd")
+                        .then()
+                        .statusCode(302)
+                        .log().body()
                         .extract().response();
 
         System.out.println(response);
